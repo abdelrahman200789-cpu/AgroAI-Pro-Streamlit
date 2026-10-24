@@ -1,0 +1,16 @@
+[
+    {
+        "id": "rule_1",
+        "crop": "Tomato",
+        "symptoms": ["yellow spots", "dark spots", "humid weather"],
+        "diagnosis": "Early Blight",
+        "treatment": "Apply copper-based fungicide and reduce irrigation."
+    },
+    {
+        "id": "rule_2",
+        "crop": "Wheat",
+        "symptoms": ["white powder", "yellow leaves"],
+        "diagnosis": "Powdery Mildew",
+        "treatment": "Use sulfur fungicide and improve air circulation."
+    }
+]
