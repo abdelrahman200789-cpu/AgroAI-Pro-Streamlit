@@ -1,0 +1,7 @@
+TITLE: Irrigation basics and soil moisture
+
+A soil-moisture percentage from a sensor is not a universal irrigation threshold. Sensor type, installation depth, soil texture, root depth, crop, growth stage, and calibration affect interpretation. Use readings as a trend, check that the sensor is installed and calibrated correctly, and compare readings with crop-specific local recommendations. Avoid irrigation decisions based on a single unverified reading.
+
+Practical checks: compare readings before and after irrigation; inspect soil near the active root zone; check emitters and leaks; and consider recent rainfall and forecast conditions. Do not treat this prototype's 30% and 80% limits as scientifically validated limits for every crop or sensor.
+
+Further reading: FAO, Irrigation water management training manual — https://www.fao.org/4/s8684e/s8684e00.htm

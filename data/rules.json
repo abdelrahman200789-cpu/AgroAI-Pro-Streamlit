@@ -2,15 +2,31 @@
     {
         "id": "rule_1",
         "crop": "Tomato",
-        "symptoms": ["yellow spots", "dark spots", "humid weather"],
+        "symptoms": [
+            "yellow spots",
+            "dark spots",
+            "humid weather"
+        ],
         "diagnosis": "Early Blight",
-        "treatment": "Apply copper-based fungicide and reduce irrigation."
+        "treatment": "Inspect leaves for characteristic lesions and compare with a trusted local plant-health guide. Remove heavily affected plant debris where appropriate, avoid prolonged leaf wetness, and seek local extension advice before applying any fungicide."
     },
     {
         "id": "rule_2",
         "crop": "Wheat",
-        "symptoms": ["white powder", "yellow leaves"],
+        "symptoms": [
+            "white powder",
+            "yellow leaves"
+        ],
         "diagnosis": "Powdery Mildew",
-        "treatment": "Use sulfur fungicide and improve air circulation."
+        "treatment": "Inspect stems and leaves and confirm the disease before treatment. Consider locally recommended resistant varieties and integrated disease management. Use only products registered for wheat in your area and follow the label."
+    },
+    {
+        "id": "rule_3",
+        "crop": "لللل",
+        "symptoms": [
+            "للل"
+        ],
+        "diagnosis": "للللللل",
+        "treatment": "لللل"
     }
 ]

@@ -1,1 +1,9 @@
-Early blight is a fungal disease affecting tomatoes and potatoes. Symptoms include yellow spots with concentric rings on leaves. Warm and humid conditions favor blight spread.
+TITLE: Early Blight — tomato and potato scouting
+
+Early blight is a fungal disease that can affect tomatoes and potatoes. Typical symptoms may include brown to dark leaf spots, often with concentric rings, and yellowing around affected tissue. Warm conditions and prolonged leaf wetness can favor disease development. Symptoms can overlap with other diseases or nutrient and environmental problems, so a text match is not a confirmed diagnosis.
+
+Integrated management notes: inspect older leaves and the whole plant; avoid unnecessary wetting of foliage; improve spacing and airflow when appropriate; remove diseased plant debris according to local guidance; rotate crops where practical; and use only locally registered plant-protection products according to their labels. Ask a local agricultural extension service when identification is uncertain.
+
+Source for further verification: University of Minnesota Extension, Early blight in tomato and potato — https://extension.umn.edu/disease-management/early-blight-tomato-and-potato
+
+Source for general integrated pest management: FAO, Integrated Pest Management — https://www.fao.org/pest-and-pesticide-management/ipm/integrated-pest-management/en/

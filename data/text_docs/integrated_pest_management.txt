@@ -1,0 +1,7 @@
+TITLE: Integrated pest management (IPM)
+
+Integrated pest management combines monitoring and correct identification with prevention and a selection of suitable control methods. These can include crop rotation, resistant varieties, sanitation, habitat and cultural practices, biological controls, and pesticides when justified. The best option depends on the crop, pest, location, crop stage, and local rules.
+
+Never select or apply a pesticide solely because a chatbot returned a keyword match. Verify the diagnosis, use only products registered for the crop and problem in your country, follow the label and required protective measures, and consult local extension guidance.
+
+Reference: FAO, Integrated Pest Management — https://www.fao.org/pest-and-pesticide-management/ipm/integrated-pest-management/en/
