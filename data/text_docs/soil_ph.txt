@@ -1,0 +1,7 @@
+TITLE: Soil pH — basic interpretation
+
+Soil pH affects nutrient availability and microbial activity. Suitable pH depends on crop and soil conditions; one pH target does not fit all crops. A reliable soil test is preferable to guessing from plant appearance. Follow the soil-testing laboratory's sampling instructions and use local agronomic recommendations before applying lime, sulfur, or fertilizer.
+
+This knowledge note is general education and is not a substitute for a soil test or local agronomist advice.
+
+Further reading: USDA Natural Resources Conservation Service, Soil health and soil testing resources — https://www.nrcs.usda.gov/conservation-basics/natural-resource-concerns/soils

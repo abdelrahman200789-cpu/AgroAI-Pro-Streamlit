@@ -1,0 +1,5 @@
+TITLE: Agricultural sensor quality checks
+
+Before acting on a sensor alert, check the sensor's location, installation depth, calibration instructions, battery or power supply, connectivity, and whether the reading is plausible compared with nearby conditions. Look for sudden jumps, stuck values, and disagreement with manual observations. Record timestamps and trends instead of relying on one reading.
+
+The AgroAI Pro IoT page uses simple demonstration thresholds. It does not connect to physical sensors or validate the sensor model, and its alerts are not crop-specific recommendations.

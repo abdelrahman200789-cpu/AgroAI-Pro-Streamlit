@@ -1,0 +1,5 @@
+TITLE: Crop planning — factors to check
+
+Crop selection depends on season, local climate, soil texture and drainage, soil test results, water availability, variety, planting date, market access, and local pest pressure. A simple table match can narrow options but cannot replace local recommendations. Verify crop suitability for the specific district and planting window before making a commercial decision.
+
+The crop records in AgroAI Pro are demonstration data. They are not an official planting calendar and should be expanded with local agricultural research or extension data before field use.

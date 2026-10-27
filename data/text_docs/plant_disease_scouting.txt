@@ -1,0 +1,7 @@
+TITLE: Plant disease scouting checklist
+
+A reliable plant-health assessment should record the crop and variety if known, plant age or growth stage, when symptoms began, which plant parts are affected, whether symptoms occur on a few plants or across a field, recent weather, irrigation, and any recent pesticide or fertilizer use. Photograph both the whole plant and close-up symptoms when possible.
+
+Many diseases, pests, nutrient disorders, and abiotic stresses can look alike. A keyword search result is a clue for further inspection, not a confirmed diagnosis. When uncertainty remains, contact a local agricultural extension service or qualified plant-health specialist.
+
+General reference: FAO, Integrated Pest Management — https://www.fao.org/pest-and-pesticide-management/ipm/integrated-pest-management/en/
