@@ -5,6 +5,7 @@ AgroAI Pro is a student prototype built with Python and Streamlit. It combines a
 ## Features
 
 - **Plant Diagnosis:** matches entered symptoms against local rules and retrieves knowledge notes when no rule matches.
+- **Plant Disease Detection (Image AI):** uploads a leaf photo and runs a quantized MobileNetV2 ONNX classifier locally on the Streamlit server (38 PlantVillage classes; no inference API). Model weights are downloaded from Hugging Face on first use and cached on the server.
 - **Crop Recommendation:** finds rows in `data/crops.csv` matching the selected season and soil type.
 - **IoT Monitor:** applies simple configurable thresholds to manually entered temperature, air-humidity, and soil-moisture readings.
 - **Expert Hub:** adds new symptom rules to `data/rules.json`.
@@ -16,6 +17,7 @@ AgroAI Pro is a student prototype built with Python and Streamlit. It combines a
 ```text
 AgroAI_Pro_Updated/
 ├── smart_agro_pro_app.py
+├── plant_disease_model.py
 ├── ir_engine.py
 ├── knowledge_engine.py
 ├── file_manager.py
@@ -80,3 +82,11 @@ Source links are included in the relevant text documents and in the chatbot's so
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+## Image-based plant disease detection
+
+The image classifier uses the quantized ONNX export of `onnx-community/mobilenet_v2_1.0_224-plant-disease-identification-ONNX`, fine-tuned on PlantVillage. It predicts among 38 classes, including healthy classes. The first image analysis downloads the model weights from Hugging Face; subsequent inference runs on the Streamlit server with ONNX Runtime CPU. No hosted inference endpoint or paid API is used.
+
+**Deployment note:** `onnxruntime` and `Pillow` are added to `requirements.txt`. Commit both `smart_agro_pro_app.py`, `plant_disease_model.py`, and `requirements.txt` to GitHub so Streamlit Community Cloud installs the dependencies. Keep the model file out of Git; it is downloaded and cached at runtime.
+
+**Limitations:** PlantVillage contains controlled images and 38 supported classes. Predictions on field images may be wrong, and diseases/crops outside the model classes may be mislabeled. The displayed score is a model score, not a calibrated probability or a confirmed diagnosis.

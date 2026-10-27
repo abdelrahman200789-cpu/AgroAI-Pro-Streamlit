@@ -222,6 +222,7 @@ page = st.sidebar.radio(
     [
         "Dashboard",
         "Plant Diagnosis",
+        "Plant Disease Detection (Image AI)",
         "Crop Recommendation",
         "IoT Monitor",
         "Expert Hub",
@@ -309,6 +310,77 @@ elif page == "Plant Diagnosis":
                             st.write(content)
                 else:
                     st.info("No matching diagnosis rules or text guides found.")
+
+
+elif page == "Plant Disease Detection (Image AI)":
+    from plant_disease_model import predict_plant_disease, MODEL_CLASSES
+
+    st.title("📷 Plant Disease Detection — Computer Vision")
+    st.write(
+        "Upload a clear photo of a single plant leaf. A pretrained MobileNetV2 model "
+        "will analyze the image on this Streamlit server without an inference API."
+    )
+    st.info(
+        "Supported model classes cover 38 PlantVillage categories across apple, blueberry, "
+        "cherry, corn, grape, orange, peach, bell pepper, potato, raspberry, soybean, "
+        "squash, strawberry, and tomato. The model may not recognize crops or conditions "
+        "outside these classes."
+    )
+
+    uploaded_leaf = st.file_uploader(
+        "Upload a plant leaf image",
+        type=["jpg", "jpeg", "png", "webp"],
+        help="Use a well-lit, focused image with the leaf clearly visible. Maximum file size: 10 MB."
+    )
+
+    if uploaded_leaf is not None:
+        if uploaded_leaf.size > 10 * 1024 * 1024:
+            st.error("The image is too large. Please upload an image smaller than 10 MB.")
+        else:
+            try:
+                from PIL import Image
+                import io as image_io
+
+                image_bytes = uploaded_leaf.getvalue()
+                leaf_image = Image.open(image_io.BytesIO(image_bytes)).convert("RGB")
+                st.image(leaf_image, caption="Uploaded leaf image", use_container_width=True)
+
+                if st.button("Analyze Image", type="primary", use_container_width=True):
+                    with st.spinner("Loading the local model and analyzing the image..."):
+                        predictions = predict_plant_disease(leaf_image)
+                    best = predictions[0]
+                    is_healthy = best["label"].lower().startswith("healthy")
+
+                    st.subheader("Analysis result")
+                    if is_healthy:
+                        st.success(f"Most likely class: {best['label']}")
+                    else:
+                        st.warning(f"Most likely class: {best['label']}")
+                    st.metric("Model score", f"{best['score'] * 100:.1f}%")
+                    st.caption(
+                        "This score reflects the model's relative prediction, not a calibrated probability "
+                        "that the diagnosis is correct."
+                    )
+
+                    st.markdown("#### Top 3 model predictions")
+                    for item in predictions:
+                        st.write(f"**{item['label']}** — {item['score'] * 100:.1f}%")
+                        st.progress(max(0.0, min(1.0, float(item["score"]))))
+
+                    st.warning(
+                        "Prototype result only. PlantVillage images are often cleaner than real field photos. "
+                        "Lighting, background, multiple leaves, nutrient deficiencies, pests, or an unsupported "
+                        "crop can lead to incorrect predictions. Confirm important decisions with an agricultural specialist."
+                    )
+                    log_action(
+                        f"Image disease classification: prediction={best['label']}; score={best['score']:.4f}"
+                    )
+            except Exception as exc:
+                st.error(
+                    "The image could not be analyzed. Check the uploaded file and try again. "
+                    "If this is the first run, the server also needs internet access to download the model weights."
+                )
+                st.caption(f"Technical detail: {type(exc).__name__}: {exc}")
 
 
 elif page == "Crop Recommendation":
@@ -527,29 +599,39 @@ elif page == "Expert Hub":
             st.success("Disease rule saved successfully.")
 
 
-
-
-
 elif page == "Agricultural Chatbot":
     st.title("💬 Agricultural Chatbot")
-
     st.write(
-        "Ask a question about agriculture or choose "
-        "one of the suggested questions below."
+        "Ask a question about agriculture. The chatbot searches "
+        "the existing text documents and displays the most relevant results."
     )
 
-    suggestions = [
-        "How can I identify plant diseases?",
-        "What are the symptoms of early blight?",
-        "How often should I irrigate crops?",
-        "How does soil pH affect plants?",
-        "How can I improve crop planning?",
-        "How can I manage agricultural pests?",
-        "What are the symptoms of wheat diseases?",
-        "How can I check sensor readings?",
-        "How does soil moisture affect irrigation?",
-        "How can I scout plants for diseases?"
+    # Suggested questions are based on topics covered by data/text_docs/*.txt.
+    suggested_questions = [
+        "How can I identify early blight in tomato plants?",
+        "What are common wheat diseases and how can they be managed?",
+        "How do I choose the right crop for a season and soil type?",
+        "What factors should I consider when planning a crop?",
+        "How can I improve irrigation and manage soil moisture?",
+        "What does soil pH mean and why is it important?",
+        "What is integrated pest management?",
+        "How should I inspect plants for disease symptoms?",
+        "How can I check whether sensor readings are reliable?",
+        "What environmental conditions can affect crop health?",
     ]
+
+    st.subheader("💡 Suggested Questions")
+    st.caption("Choose a question to search the agricultural knowledge documents.")
+
+    for row_start in range(0, len(suggested_questions), 2):
+        col1, col2 = st.columns(2)
+        for col, question_text in zip(
+            (col1, col2), suggested_questions[row_start:row_start + 2]
+        ):
+            with col:
+                if st.button(question_text, key=f"suggestion_{row_start}_{question_text}", use_container_width=True):
+                    st.session_state.pending_chat_question = question_text
+                    st.rerun()
 
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
@@ -558,27 +640,11 @@ elif page == "Agricultural Chatbot":
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    st.subheader("💡 Suggested Questions")
-
-    question = None
-
-    col1, col2 = st.columns(2)
-
-    for i, suggestion in enumerate(suggestions):
-        with (col1 if i % 2 == 0 else col2):
-            if st.button(
-                suggestion,
-                key=f"chat_suggestion_{i}",
-                use_container_width=True
-            ):
-                question = suggestion
-
     typed_question = st.chat_input(
         "Ask about irrigation, soil, crops, or plant diseases..."
     )
-
-    if typed_question:
-        question = typed_question
+    suggested_question = st.session_state.pop("pending_chat_question", None)
+    question = suggested_question or typed_question
 
     if question:
         st.session_state.chat_history.append({
@@ -586,12 +652,11 @@ elif page == "Agricultural Chatbot":
             "content": question
         })
 
-        results = ir_sys.search(question)
+        results = ir_sys.search(question, limit=3)
         log_action(f"Chatbot knowledge search: {question}")
 
         if results:
             doc_id, content, score = results[0]
-
             answer = (
                 "Here is the most relevant information I found:\n\n"
                 f"{content}\n\n"
@@ -617,7 +682,6 @@ elif page == "Agricultural Chatbot":
             "role": "assistant",
             "content": answer
         })
-
         st.rerun()
 
     if st.session_state.chat_history:

@@ -6,7 +6,8 @@ AgroAI Pro is a small Streamlit-based agricultural information prototype. Its cu
 
 ## 2. Main modules
 
-- `smart_agro_pro_app.py`: Streamlit navigation, forms, display, suggested chatbot questions, and PDF report export.
+- `smart_agro_pro_app.py`: Streamlit navigation, forms, display, image-upload interface, suggested chatbot questions, and PDF report export.
+- `plant_disease_model.py`: downloads/caches the quantized MobileNetV2 ONNX weights and runs CPU inference on uploaded leaf images.
 - `knowledge_engine.py`: disease-rule matching, crop-record filtering, and IoT advisory thresholds.
 - `ir_engine.py`: tokenization, inverted index, TF-IDF vectors, and cosine-similarity ranking.
 - `file_manager.py`: CSV/JSON persistence and application logging.
@@ -32,7 +33,7 @@ The included unit tests check the current sample data, symptom matching, crop fi
 - Symptom matching is keyword-based and may miss synonyms or match symptoms shared by different conditions.
 - TF-IDF is lexical retrieval; it does not understand context as a language model would.
 - IoT thresholds are demonstration settings and are not calibrated to a particular sensor, crop, soil, or location.
-- The application does not connect to physical sensors, weather feeds, crop-disease image models, or external databases.
+- The application does not connect to physical sensors, weather feeds, or live agricultural databases. The image-classification page uses a pretrained MobileNetV2 ONNX model with 38 PlantVillage classes; its weights are downloaded from Hugging Face on first use, while inference itself runs locally on the Streamlit server without an inference API.
 - Local agronomic and pesticide guidance must be verified with qualified sources.
 
 ## 7. Future improvements
@@ -42,3 +43,10 @@ The included unit tests check the current sample data, symptom matching, crop fi
 3. Add crop-specific, sensor-specific threshold configuration.
 4. Add source metadata and review status for every rule.
 5. If adding an image-based disease model, document its dataset, supported classes, limitations, and evaluation metrics, and avoid presenting model output as certain diagnosis.
+
+
+## 8. Computer vision: image-based disease classification
+
+The added Plant Disease Detection page accepts JPG, JPEG, PNG, or WEBP images up to 10 MB. It preprocesses the image to 224×224 with normalization, runs a quantized MobileNetV2 ONNX model using ONNX Runtime on CPU, and displays the top three classes. The model was fine-tuned on PlantVillage and includes 38 classes across several crops. The app downloads the approximately 2.7 MB quantized model file on first use and reuses the cached file; no inference API is called.
+
+This is an educational prototype. Benchmark performance reported by the model publisher is not a guarantee of real-world accuracy. PlantVillage images are often captured under controlled conditions, so background, lighting, multiple leaves, unseen diseases, and unsupported crops can reduce accuracy. The model score is not a calibrated probability. Important diagnoses and treatment decisions should be confirmed by a qualified agricultural specialist.
