@@ -528,6 +528,30 @@ elif page == "Expert Hub":
 
 
 
+
+elif page == "Agricultural Chatbot":
+    st.title("💬 Agricultural Chatbot")
+
+    st.write(
+        "Ask a question about agriculture or choose "
+        "one of the suggested questions below."
+    )
+
+    suggestions = [
+        "How can I identify plant diseases?",
+        "What are the symptoms of early blight?",
+        "How often should I irrigate crops?",
+        "How does soil pH affect plants?",
+        "How can I improve crop planning?",
+        "How can I manage agricultural pests?",
+        "What are the symptoms of wheat diseases?",
+        "How can I check sensor readings?",
+        "How does soil moisture affect irrigation?",
+        "How can I scout plants for diseases?"
+    ]
+
+
+
 elif page == "Agricultural Chatbot":
     st.title("💬 Agricultural Chatbot")
 
@@ -622,3 +646,4 @@ elif page == "Agricultural Chatbot":
         if st.button("Clear Conversation"):
             st.session_state.chat_history = []
             st.rerun()
+
